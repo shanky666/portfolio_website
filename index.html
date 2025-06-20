@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shashank R | Cloud & AI Portfolio</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --bg-dark: #0a0a10;
+      --bg-glass: rgba(26, 26, 38, 0.6);
+      --border-glass: rgba(255, 255, 255, 0.1);
+      --accent-primary: #8a2be2; /* BlueViolet */
+      --accent-secondary: #00f5d4; /* Bright Cyan/Teal */
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+    }
+
+    /* --- Base & Scrollbar --- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body::-webkit-scrollbar {
+        width: 8px;
+    }
+    body::-webkit-scrollbar-track {
+        background: var(--bg-dark);
+    }
+    body::-webkit-scrollbar-thumb {
+        background-color: var(--accent-primary);
+        border-radius: 10px;
+    }
+
+    /* --- Animated Background Blobs --- */
+    .blob-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+    }
+    .blob1 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent-primary);
+      top: -150px;
+      left: -150px;
+      animation: move 20s infinite alternate;
+    }
+    .blob2 {
+      width: 350px;
+      height: 350px;
+      background: var(--accent-secondary);
+      bottom: -100px;
+      right: -100px;
+      animation: move 25s infinite alternate-reverse;
+    }
+
+    @keyframes move {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(200px, 100px) scale(1.2); }
+    }
+
+    /* --- Layout & Typography --- */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 3rem;
+      font-weight: 700;
+    }
+    
+    h2 span {
+        color: var(--accent-primary);
+    }
+
+    section {
+      padding: 6rem 0;
+      position: relative;
+    }
+    
+    /* --- Header & Navigation --- */
+    .main-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 0;
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-glass);
+      transition: top 0.3s;
+    }
+    
+    .main-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        text-decoration: none;
+    }
+    .logo span { color: var(--accent-primary); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent-primary);
+    }
+    
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .menu-toggle .bar {
+      width: 25px;
+      height: 3px;
+      background-color: var(--text-primary);
+      border-radius: 3px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* --- Hero Section --- */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: text-gradient-anim 10s ease infinite;
+      background-size: 200% auto;
+    }
+    
+    @keyframes text-gradient-anim {
+        to { background-position: 200% center; }
+    }
+
+    #hero .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    .cta-button {
+      background: var(--accent-primary);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+    }
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(138, 43, 226, 0.4);
+    }
+    
+    .social-links {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .social-links a {
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .social-links a:hover {
+      color: var(--accent-primary);
+      transform: translateY(-3px);
+    }
+
+    /* --- Shaped Section Dividers --- */
+    .angled-section {
+        background: linear-gradient(160deg, var(--bg-dark) 45%, #101018 45%);
+    }
+
+    /* --- Projects Section --- */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-glass);
+      border-radius: 15px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+      border-color: rgba(138, 43, 226, 0.5);
+    }
+    .project-card h3 {
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+    }
+    .project-card p {
+        flex-grow: 1;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+    }
+    .tech-tags {
+        display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;
+    }
+    .tech-tag {
+        background-color: rgba(0, 245, 212, 0.1);
+        color: var(--accent-secondary);
+        font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px;
+    }
+    .project-links a {
+      font-weight: 600; color: var(--accent-primary); transition: color 0.3s;
+    }
+    .project-links a:hover { color: var(--accent-secondary); }
+
+    /* --- Skills Section --- */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .skill-item:hover {
+      background-color: var(--accent-primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+    }
+    .skill-item i {
+      color: var(--accent-secondary);
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .skill-item:hover i {
+      color: white;
+    }
+    
+    /* --- Contact Section --- */
+    #contact { text-align: center; }
+    #contact .container { max-width: 700px; }
+    #contact p { color: var(--text-secondary); margin-bottom: 2rem; }
+
+    /* --- Footer --- */
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      background-color: #050508;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    /* --- Animations On Scroll --- */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* --- Responsive Design --- */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+        z-index: 1001;
+      }
+      .menu-toggle.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .menu-toggle.is-active .bar:nth-child(2) {
+        opacity: 0;
+      }
+      .menu-toggle.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg-dark);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        gap: 3rem;
+      }
+      .nav-links.is-active {
+        transform: translateX(0);
+      }
+      .nav-links a { font-size: 1.5rem; }
+      
+      .angled-section { background: var(--bg-dark); }
+    }
+  </style>
+</head>
+<body>
+    <div class="blob-container">
+      <div class="blob blob1"></div>
+      <div class="blob blob2"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container main-nav">
+            <a href="#" class="logo">Shashank<span>.</span>R</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container hero-content animate-on-scroll">
+                <p class="subtitle" style="color: var(--accent-secondary); font-weight: 600;">SHASHANK R.</p>
+                <h1>Cloud Architect & Machine Learning Engineer</h1>
+                <p class="subtitle">
+                    Final-year Computer Science student specializing in building scalable cloud systems and intelligent data-driven applications.
+                </p>
+                <a href="#projects" class="cta-button">View My Work</a>
+                <div class="social-links">
+                    <a href="mailto:ssshashank.r@gmail.com" aria-label="Email" target="_blank"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.linkedin.com/in/shashankgowda-r" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/shanky666" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="tel:+918088391940" aria-label="Phone"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="angled-section">
+            <div class="container">
+                <h2 class="animate-on-scroll">Featured <span>Projects</span></h2>
+                <div class="project-grid">
+                    <div class="project-card animate-on-scroll" style="transition-delay: 100ms;">
+                        <h3>Cloud Gaming System</h3>
+                        <p>A scalable, low-latency gaming platform using AWS EC2 for on-demand GPU instances, Parsec for high-performance streaming, and Playnite for a unified game library. Published at ICETSE 2025.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">AWS EC2</span><span class="tech-tag">Parsec</span><span class="tech-tag">Cloud Infrastructure</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/shanky666" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll" style="transition-delay: 200ms;">
+                        <h3>MathBot Serverless Assistant</h3>
+                        <p>A cost-effective, real-time math-solving assistant built on a serverless architecture. Uses Lambda for computation, S3 for storage, and API Gateway for seamless access.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">AWS Lambda</span><span class="tech-tag">Serverless</span><span class="tech-tag">API Gateway</span><span class="tech-tag">S3</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/shanky666" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll" style="transition-delay: 300ms;">
+                        <h3>Fintick – Financial ML Analytics</h3>
+                        <p>Developed predictive models for stock volatility and market trends using historical data. Implemented various ML algorithms to provide actionable financial insights.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Machine Learning</span><span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span class="tech-tag">Scikit-learn</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/shanky666" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub</a>
+                        </div>
+                    </div>
+                     <div class="project-card animate-on-scroll" style="transition-delay: 400ms;">
+                        <h3>Medical Diagnosis with Naive Bayes</h3>
+                        <p>A probabilistic classifier built with Python using symptom datasets from Kaggle. Accurately predicts possible medical diagnoses based on user input.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Data Science</span><span class="tech-tag">Naive Bayes</span><span class="tech-tag">Python</span><span class="tech-tag">Kaggle</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/shanky666" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <h2 class="animate-on-scroll">Core <span>Technologies</span></h2>
+                <div class="skills-container animate-on-scroll">
+                    <div class="skill-item"><i class="fab fa-aws"></i>AWS (EC2, Lambda, S3)</div>
+                    <div class="skill-item"><i class="fas fa-server"></i>Serverless Architecture</div>
+                    <div class="skill-item"><i class="fab fa-python"></i>Python</div>
+                    <div class="skill-item"><i class="fas fa-brain"></i>Machine Learning</div>
+                    <div class="skill-item"><i class="fas fa-database"></i>Data Science</div>
+                    <div class="skill-item"><i class="fab fa-java"></i>Java</div>
+                    <div class="skill-item"><i class="fab fa-git-alt"></i>Git & GitHub</div>
+                    <div class="skill-item"><i class="fas fa-terminal"></i>C++</div>
+                    <div class="skill-item"><i class="fas fa-network-wired"></i>API Gateway</div>
+                    <div class="skill-item"><i class="fas fa-users"></i>Collaboration</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="angled-section">
+            <div class="container animate-on-scroll">
+                <h2>Let's <span>Connect</span></h2>
+                <p>I'm actively seeking cloud and machine learning internship opportunities where I can contribute to exciting projects and continue to grow my skills. If you have a role that seems like a good fit, or just want to chat, I'd love to hear from you.</p>
+                <a href="mailto:ssshashank.r@gmail.com" class="cta-button">Say Hello</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Shashank R. Built with passion and code.</p>
+    </footer>
+
+    <script>
+      // --- Mobile Menu Toggle ---
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('is-active');
+        navLinks.classList.toggle('is-active');
+      });
+      
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.classList.remove('is-active');
+          navLinks.classList.remove('is-active');
+        });
+      });
+
+      // --- Animate On Scroll ---
+      const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            // Optional: unobserve after animation
+            // observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+      });
+
+      animatedElements.forEach(el => {
+        observer.observe(el);
+      });
+    </script>
+</body>
+</html>
